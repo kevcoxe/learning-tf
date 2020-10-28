@@ -112,10 +112,6 @@ resource "aws_eip" "one" {
   depends_on                = [aws_internet_gateway.gw]
 }
 
-output "server_public_ip" {
-  value = aws_eip.one.public_ip
-}
-
 
 # ------------------------------------------------------------
 # ssh key
@@ -164,15 +160,4 @@ resource "aws_instance" "web-server-instance" {
   tags = {
     Name = "web-server"
   }
-}
-
-
-
-output "server_private_ip" {
-  value = aws_instance.web-server-instance.private_ip
-
-}
-
-output "server_id" {
-  value = aws_instance.web-server-instance.id
 }
