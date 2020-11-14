@@ -39,12 +39,16 @@ resource "aws_instance" "web-server-instance" {
   }
 
   user_data = <<-EOF
-                #!/bin/bash
-                sudo apt update -y
-                sudo apt install apache2 -y
-                sudo systemctl start apache2
-                sudo bash -c 'echo your very first web server > /var/www/html/index.html'
-                EOF
+    #!/bin/bash
+    sudo apt update -y
+    sudo apt install git python3-pip -y
+    cd /home/ubuntu
+    sudo git clone https://github.com/kevcoxe/ip-tracker.git
+    cd ip-tracker
+    pip3 install -r requirements.txt
+    sudo python3 app.py &
+  EOF
+
   tags = {
     Name = "web-server"
   }
